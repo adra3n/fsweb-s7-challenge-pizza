@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { FormGroup, Form, Input, Label, Button, Row, Col } from 'reactstrap'
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import axios from 'axios';
 import "./Form.css";
 
 const OrderForm = ({ siparisSonucu }) => {
@@ -42,6 +43,8 @@ const OrderForm = ({ siparisSonucu }) => {
         siparisSonucu(siparisDetayi);
         console.log(siparisDetayi);
         navigate("/success");
+        axios.post(`https://reqres.in/api/orders`, siparisDetayi)
+            .then((res) => { console.log("axios post>", res.data) })
     };
 
     useEffect(() => {
@@ -52,6 +55,15 @@ const OrderForm = ({ siparisSonucu }) => {
         isim: "Bir isim girmelisiniz. En az 2 harf!",
         sos: "Bir sos seçiniz",
         malzeme: "En fazla 5 malzeme seçebilirsiniz."
+    });
+    const formSchema = Yup.object().shape({
+        name: Yup
+            .string()
+            .required("İsim alanı zorunlu")
+            .min(2, "En az 2 harf olmalı"),
+        // Yup.object({ checked: Yup.array().min(1, 'Select atleast one option of your interest') });
+        // toppings: yup.array().max(5).of(yup.string().required()).required(),
+        // required isn't required for checkboxes.
     });
 
 
@@ -235,15 +247,10 @@ const OrderForm = ({ siparisSonucu }) => {
                         <Input type="text" name="not" id="special-text" onChange={changeHandler} />
                     </FormGroup>
                 </div>
-
-
                 <Button id="order-button" style={{ color: "#292929", backgroundColor: "#FDC913", border: "0", padding: "5%", marginTop: "1rem" }}>
                     Sipariş Ver
                 </Button>
-
             </Form >
-
-
         </div >
     )
 }
