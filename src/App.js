@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Route, Routes, Link } from "react-router-dom";
 import Form from "./components/Form";
 import AnaSayfa from './AnaSayfa';
 import Success from './components/Success';
+
 const App = () => {
 
   const [siparis, setSiparis] = useState({});

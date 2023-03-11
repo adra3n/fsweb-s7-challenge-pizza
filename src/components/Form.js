@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FormGroup, Form, Input, Label, Button, Row, Col } from 'reactstrap'
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 import "./Form.css";
 
 const OrderForm = ({ siparisSonucu }) => {
@@ -8,12 +9,12 @@ const OrderForm = ({ siparisSonucu }) => {
     const [siparisDetayi, setSiparisDetayi] = useState({
         size: "Küçük",
         sos: "Original Red",
-        pepperoni: "yok",
-        misir: "yok",
-        domates: "yok",
-        sarimsak: "yok",
-        sogan: "yok",
-        biber: "yok",
+        pepperoni: "Yok",
+        misir: "Yok",
+        domates: "Yok",
+        sarimsak: "Yok",
+        sogan: "Yok",
+        biber: "Yok",
         not: "",
     });
 
@@ -29,10 +30,10 @@ const OrderForm = ({ siparisSonucu }) => {
 
     const checkHandler = (e) => {
         if (e.target.checked === true) {
-            setSiparisDetayi({ ...siparisDetayi, [e.target.name]: "var" });
+            setSiparisDetayi({ ...siparisDetayi, [e.target.name]: "Var" });
         }
         else {
-            setSiparisDetayi({ ...siparisDetayi, [e.target.name]: "yok" })
+            setSiparisDetayi({ ...siparisDetayi, [e.target.name]: "Yok" })
         }
     };
 
@@ -47,27 +48,37 @@ const OrderForm = ({ siparisSonucu }) => {
         console.log("siparis detayi >", siparisDetayi);
     }, [siparisDetayi]);
 
-    // const [formErrors, setFormErrors] = useState({
-    // isim: "Bir isim girmelisiniz"
-    //     sos: "Bir sos seçiniz",
-    // });
+    const [formErrors, setFormErrors] = useState({
+        isim: "Bir isim girmelisiniz. En az 2 harf!",
+        sos: "Bir sos seçiniz",
+        malzeme: "En fazla 5 malzeme seçebilirsiniz."
+    });
 
 
     return (
         <div className='form-Container'>
-            <h1 style={{ paddingTop: "1%" }}>Pizza Sipariş Formu</h1>
-            <FormGroup style={{ textAlign: "center", margin: "2rem 0 1rem 0" }}>
+            <img src={require('../assets/esnek-form-banner.png')} style={{ width: "18%" }} />
+            <h5 style={{ paddingTop: "1%" }}>Pizza Sipariş Formu</h5>
+            <FormGroup style={{ textAlign: "center", margin: "1rem 0 1rem 0" }}>
+
                 <Label for="isim" >
-                    <h6>İsminiz</h6>
+                    <h6 >İsminiz</h6>
+
                 </Label>
                 <Input type="text" name="isim" id="isim" onChange={changeHandler} />
+
+                <hr />
             </FormGroup>
-            <h2>Pizzanızın detaylarını seçiniz!</h2>
+
+            <h5>Pizzanızın detaylarını seçiniz!</h5>
+
             <Form id="pizza-form" onSubmit={submitHandler}>
                 <FormGroup id="size-dropdown">
-                    <h5>Pizza Boyu</h5>
+                    <br />
+
+                    <h6>Pizza Boyu</h6>
                     <Input
-                        id="size"
+                        id="size-dropdown"
                         name="size"
                         type="select"
                         value={siparisDetayi.size}
@@ -87,7 +98,7 @@ const OrderForm = ({ siparisSonucu }) => {
                         </option>
                     </Input>
                 </FormGroup>
-                <h5>Sosunuzu Seçiniz</h5>
+                <h6>Sosunuzu Seçiniz</h6>
                 <FormGroup tag="fieldset" style={{ textAlign: "justify", display: 'flex', flexDirection: "column" }} >
 
                     <Row xs={1} >
@@ -149,7 +160,7 @@ const OrderForm = ({ siparisSonucu }) => {
                             </FormGroup>
                         </Col></Row>
                 </FormGroup>
-                <h5>Ek malzemeler</h5>
+                <h6>Ek malzemeler</h6>
                 <div style={{ textAlign: "justify" }}>
                     <Row xs={3}>
                         <Col> <FormGroup
@@ -215,16 +226,19 @@ const OrderForm = ({ siparisSonucu }) => {
                                 </Label>
                             </FormGroup>
                             {' '}</Col></Row>
+
+                    <hr />
                     <FormGroup style={{ textAlign: "center", margin: "2rem 0 1rem 0" }}>
                         <Label for="not" >
                             <h6>Sipariş Notunuzu Giriniz</h6>
                         </Label>
-                        <Input type="text" name="not" id="not" onChange={changeHandler} />
+                        <Input type="text" name="not" id="special-text" onChange={changeHandler} />
                     </FormGroup>
                 </div>
 
-                <Button style={{ color: "#292929", backgroundColor: "#FDC913", border: "0", padding: "5%", marginTop: "1rem" }}>
-                    Sipariş Ver!
+
+                <Button id="order-button" style={{ color: "#292929", backgroundColor: "#FDC913", border: "0", padding: "5%", marginTop: "1rem" }}>
+                    Sipariş Ver
                 </Button>
 
             </Form >

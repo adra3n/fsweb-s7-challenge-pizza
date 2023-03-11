@@ -4,6 +4,7 @@
   flex-direction: column;
   align-items: center;
   background-color: #FAF7F2;
+  box-sizing: border-box;
 }
 
 
@@ -15,3 +16,5 @@
   flex-direction: column;
   align-items: center;
 }
+
+.nav-Container {}
