@@ -21,14 +21,14 @@ const OrderForm = ({ siparisSonucu }) => {
 
     const [formErrors, setFormErrors] = useState({
         isim: "",
-        size: "Küçük",
+        size: "",
         sos: "",
-        pepperoni: "",
-        misir: "",
-        domates: "",
-        sarimsak: "",
-        sogan: "",
-        biber: "",
+        // pepperoni: "",
+        // misir: "",
+        // domates: "",
+        // sarimsak: "",
+        // sogan: "",
+        // biber: "",
         not: "",
         // malzeme: "En fazla 5 malzeme seçebilirsiniz."
     });
@@ -39,12 +39,12 @@ const OrderForm = ({ siparisSonucu }) => {
             .min(2, "En az 2 harf olmalı"),
         size: Yup.string().required("Pizza boyunuzu seçmeniz gerekiyor."),
         sos: Yup.string().required("Pizza sosu seçmeniz gerekiyor."),
-        pepperoni: Yup.string(),
-        misir: Yup.string(),
-        domates: Yup.string(),
-        sarimsak: Yup.string(),
-        sogan: Yup.string(),
-        biber: Yup.string(),
+        // pepperoni: Yup.string(),
+        // misir: Yup.string(),
+        // domates: Yup.string(),
+        // sarimsak: Yup.string(),
+        // sogan: Yup.string(),
+        // biber: Yup.string(),
         not: Yup.string(),
 
         // Yup.object({ checked: Yup.array().min(1, 'Select atleast one option of your interest') });
@@ -55,7 +55,18 @@ const OrderForm = ({ siparisSonucu }) => {
     const [disableButton, setDisableButton] = useState(true);
 
     const navigate = useNavigate();
+
     const changeHandler = (e) => {
+
+        Yup.reach(formSchema, e.target.name)
+            .validate(e.target.value)
+            .then(valid => {
+                setFormErrors({ ...formErrors, [e.target.name]: "" })
+            })
+            .catch(err => {
+                setFormErrors({ ...formErrors, [e.target.name]: err.errors[0] })
+            })
+
         setSiparisDetayi({ ...siparisDetayi, [e.target.name]: e.target.value });
     };
 
@@ -78,7 +89,7 @@ const OrderForm = ({ siparisSonucu }) => {
         siparisSonucu(siparisDetayi);
         console.log(siparisDetayi);
         navigate("/success");
-        axios.post(`https://reqres.in/api/orders`, siparisDetayi)
+        axios.post("https://reqres.in/api/orders", siparisDetayi)
             .then((res) => { console.log("axios post>", res.data) })
     };
 
@@ -87,27 +98,28 @@ const OrderForm = ({ siparisSonucu }) => {
         formSchema.isValid(siparisDetayi).then(valid => { setDisableButton(!valid) });
     }, [siparisDetayi]);
 
-
+    useEffect(() => {
+        console.log("form error >", formErrors)
+    }, [formErrors]);
 
     return (
         <div className='form-Container'>
             <img src={require('../assets/esnek-form-banner.png')} style={{ width: "18%" }} />
             <h5 style={{ paddingTop: "1%" }}>Pizza Sipariş Formu</h5>
-            <FormGroup style={{ textAlign: "center", margin: "1rem 0 1rem 0" }}>
-
-                <Label for="isim" >
-                    <h6 >İsminiz</h6>
-
-                </Label>
-                <Input type="text" name="isim" id="isim" onChange={changeHandler} />
-
-                <hr />
-            </FormGroup>
-
-            <h5>Pizzanızın detaylarını seçiniz!</h5>
 
             <Form id="pizza-form" onSubmit={submitHandler}>
-                <FormGroup id="size-dropdown">
+                <FormGroup style={{ textAlign: "center", margin: "1rem 0 1rem 0" }}>
+
+                    <Label for="isim" >
+                        <h6 >İsminiz</h6>
+
+                    </Label>
+                    <Input type="text" name="isim" id="name-input" onChange={changeHandler} />
+
+                    <hr />
+                </FormGroup>
+                <h5>Pizzanızın detaylarını seçiniz!</h5>
+                <FormGroup >
                     <br />
 
                     <h6>Pizza Boyu</h6>
@@ -185,7 +197,6 @@ const OrderForm = ({ siparisSonucu }) => {
                                     type="radio"
                                     id="Spinach Alfredo"
                                     onChange={clickHandler}
-
                                 />
                                 {' '}
                                 <Label check>
@@ -208,7 +219,6 @@ const OrderForm = ({ siparisSonucu }) => {
                         </Col><Col>
                             <FormGroup
                                 check
-
                             >
                                 <Input type="checkbox" name="misir" onChange={checkHandler} />
                                 <Label check>
@@ -219,7 +229,6 @@ const OrderForm = ({ siparisSonucu }) => {
                             {' '}
                             <FormGroup
                                 check
-
                             >
                                 <Input type="checkbox" name="domates" onChange={checkHandler} />
                                 <Label check>
@@ -231,7 +240,6 @@ const OrderForm = ({ siparisSonucu }) => {
                         <Col>
                             <FormGroup
                                 check
-
                             >
                                 <Input type="checkbox" name="sarimsak" onChange={checkHandler} />
                                 <Label check>
@@ -242,7 +250,6 @@ const OrderForm = ({ siparisSonucu }) => {
                         </Col><Col>
                             <FormGroup
                                 check
-
                             >
                                 <Input type="checkbox" name="sogan" onChange={checkHandler} />
                                 <Label check>
@@ -252,7 +259,6 @@ const OrderForm = ({ siparisSonucu }) => {
                             {' '}</Col><Col>
                             <FormGroup
                                 check
-
                             >
                                 <Input type="checkbox" name="biber" onChange={checkHandler} />
                                 <Label check>
