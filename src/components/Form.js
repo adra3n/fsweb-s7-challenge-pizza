@@ -8,8 +8,8 @@ import "./Form.css";
 const OrderForm = ({ siparisSonucu }) => {
 
     const [siparisDetayi, setSiparisDetayi] = useState({
-        size: "Küçük",
-        sos: "Original Red",
+        size: "",
+        sos: "",
         pepperoni: "Yok",
         misir: "Yok",
         domates: "Yok",
@@ -18,6 +18,41 @@ const OrderForm = ({ siparisSonucu }) => {
         biber: "Yok",
         not: "",
     });
+
+    const [formErrors, setFormErrors] = useState({
+        isim: "",
+        size: "Küçük",
+        sos: "",
+        pepperoni: "",
+        misir: "",
+        domates: "",
+        sarimsak: "",
+        sogan: "",
+        biber: "",
+        not: "",
+        // malzeme: "En fazla 5 malzeme seçebilirsiniz."
+    });
+    const formSchema = Yup.object().shape({
+        isim: Yup
+            .string()
+            .required("İsim alanı zorunlu")
+            .min(2, "En az 2 harf olmalı"),
+        size: Yup.string().required("Pizza boyunuzu seçmeniz gerekiyor."),
+        sos: Yup.string().required("Pizza sosu seçmeniz gerekiyor."),
+        pepperoni: Yup.string(),
+        misir: Yup.string(),
+        domates: Yup.string(),
+        sarimsak: Yup.string(),
+        sogan: Yup.string(),
+        biber: Yup.string(),
+        not: Yup.string(),
+
+        // Yup.object({ checked: Yup.array().min(1, 'Select atleast one option of your interest') });
+        // toppings: yup.array().max(5).of(yup.string().required()).required(),
+        // required isn't required for checkboxes.
+    });
+
+    const [disableButton, setDisableButton] = useState(true);
 
     const navigate = useNavigate();
     const changeHandler = (e) => {
@@ -49,22 +84,9 @@ const OrderForm = ({ siparisSonucu }) => {
 
     useEffect(() => {
         console.log("siparis detayi >", siparisDetayi);
+        formSchema.isValid(siparisDetayi).then(valid => { setDisableButton(!valid) });
     }, [siparisDetayi]);
 
-    const [formErrors, setFormErrors] = useState({
-        isim: "Bir isim girmelisiniz. En az 2 harf!",
-        sos: "Bir sos seçiniz",
-        malzeme: "En fazla 5 malzeme seçebilirsiniz."
-    });
-    const formSchema = Yup.object().shape({
-        name: Yup
-            .string()
-            .required("İsim alanı zorunlu")
-            .min(2, "En az 2 harf olmalı"),
-        // Yup.object({ checked: Yup.array().min(1, 'Select atleast one option of your interest') });
-        // toppings: yup.array().max(5).of(yup.string().required()).required(),
-        // required isn't required for checkboxes.
-    });
 
 
     return (
@@ -247,7 +269,7 @@ const OrderForm = ({ siparisSonucu }) => {
                         <Input type="text" name="not" id="special-text" onChange={changeHandler} />
                     </FormGroup>
                 </div>
-                <Button id="order-button" style={{ color: "#292929", backgroundColor: "#FDC913", border: "0", padding: "5%", marginTop: "1rem" }}>
+                <Button disabled={disableButton} id="order-button" style={{ color: "#292929", backgroundColor: "#FDC913", border: "0", padding: "5%", marginTop: "1rem" }}>
                     Sipariş Ver
                 </Button>
             </Form >
