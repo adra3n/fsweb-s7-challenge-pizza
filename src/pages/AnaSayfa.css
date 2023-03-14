@@ -1,0 +1,16 @@
+.anasayfa-Container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 85vh;
+  text-decoration: none;
+  background-color: #ce2829;
+  background: url('../assets/mvp-banner.png');
+}
+
+.order-pizza {
+  text-decoration: none;
+  color: #292929;
+}
