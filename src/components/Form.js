@@ -134,28 +134,23 @@ const OrderForm = ({ siparisSonucu }) => {
                     textAlign: "justify"
                 }} >
                     <Col md={6} >
-                        <FormGroup style={{ width: "30vw" }}>
+                        <FormGroup style={{ width: "30vw", textAlign: "center" }}>
                             <br />
                             <h6>Pizza Boyu</h6>
                             <Input
                                 id="size-dropdown"
                                 name="boy"
                                 type="select"
+                                onChange={changeHandler}
+                                invalid={formErrors.boy}
                                 value={siparisDetayi.boy}
-                                onChange={changeHandler} invalid={formErrors.boy}
+
                             >
-                                <option>
-                                    Küçük
-                                </option>
-                                <option>
-                                    Orta
-                                </option>
-                                <option>
-                                    Büyük
-                                </option>
-                                <option>
-                                    XL
-                                </option>
+                                <option value="" disabled hidden>Boy Seçiniz</option>
+                                <option value="Küçük">Küçük</option>
+                                <option value="Orta">Orta</option>
+                                <option value="Büyük">Büyük</option>
+                                <option value="XL">XL</option>
                             </Input>
                             <FormFeedback>{formErrors.boy}</FormFeedback>
                         </FormGroup>
@@ -243,7 +238,7 @@ const OrderForm = ({ siparisSonucu }) => {
                         flexFlow: "row wrap",
                         justifyContent: "space-between"
                     }}>
-                        {toppings.map((e, index) => (
+                        {toppings.map((e) => (
 
                             <FormGroup check style={{ flex: '0 0 32%' }} >
                                 <Label check>
@@ -267,7 +262,7 @@ const OrderForm = ({ siparisSonucu }) => {
                 <Button disabled={disableButton} id="order-button" style={{
                     color: "#292929",
                     backgroundColor: "#FDC913",
-                    border: "0.15rem white solid",
+                    border: "0",
                     padding: "3%",
                     margin: "1rem 0",
                     borderRadius: "1rem"
