@@ -6,23 +6,22 @@ const Success = ({ siparis }) => {
 
         }} ><h4 style={{ textAlign: "center", padding: "3% 0 0 0", }}>Siparişiniz Başarıyla Bize Ulaştı.</h4>
             <ul style={{
-                textAlign: "center", padding: "3% 0 0 0", display: "flex", flexDirection: "column", alignItems: "center"
+                textAlign: "center", padding: "2% 0 0 0", display: "flex", flexDirection: "column", alignItems: "center"
             }}>
                 <ul ><h4>Merhaba {siparis.isim}!</h4></ul>
                 <br></br>
                 <ul><h5>Siparişinizin Detayları</h5></ul>
-                <ul>Pizzanızın Boyutu: {siparis.size}</ul>
-                <ul>Sosu: {siparis.sos}</ul>
+                <br></br>
+                <ul><h6>Pizzanızın Boyutu</h6></ul>
+                <ul> {siparis.boy}</ul>
+                <br></br>
+                <ul><h6>Sos Tercihi</h6></ul>
+                <ul>{siparis.sos}</ul>
                 <br></br>
                 <ul><h6>Ek Malzeme Tercihleriniz</h6></ul>
-                <ul>Pepperoni: {siparis.pepperoni}</ul>
-                <ul>Mısır: {siparis.misir}</ul>
-                <ul>Domates: {siparis.domates}</ul>
-                <ul>Sarımsak: {siparis.sarimsak}</ul>
-                <ul>Soğan: {siparis.sogan}</ul>
-                <ul>Biber: {siparis.biber}</ul>
+                <ul>{siparis.malzemeler.join(", ")} </ul>
                 <br></br>
-                <ul><h5>Sipariş Notun: {siparis.not}</h5>
+                <ul><h6>Sipariş Notunuz: {siparis.not}</h6>
                     <br />
                     <br />
                 </ul>
