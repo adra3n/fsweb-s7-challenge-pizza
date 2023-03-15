@@ -27,11 +27,11 @@ const NotFound = () => {
             <div class=" col-md-6 mt-5">
               <p class="fs-3">
                 {' '}
-                <span class="text-danger">Opps!</span> Page not found.
+                <span class="text-danger">Eyvah!</span> Bir sorun var.
               </p>
-              <p class="lead">The page you’re looking for doesn’t exist.</p>
-              <a href="index.html" class="btn btn-primary">
-                Go Home
+              <p class="lead">Aradığınız URL bulunamadı.</p>
+              <a href="index.html" class="btn btn-warning">
+                Geri Git
               </a>
             </div>
           </div>

@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
+
 import Form from './pages/Form'
 import AnaSayfa from './pages/AnaSayfa'
 import Success from './pages/Success'
 import NotFound from './pages/NotFound'
 import Layout from './layouts/Layout'
+
 const App = () => {
   const [siparis, setSiparis] = useState({})
 

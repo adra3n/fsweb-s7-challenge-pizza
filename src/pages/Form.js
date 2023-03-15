@@ -36,7 +36,7 @@ const OrderForm = ({ siparisSonucu }) => {
     malzemeler: [],
     adet: '',
     not: '',
-    fiyat: '',
+    fiyat: 100,
   })
 
   const [formErrors, setFormErrors] = useState({
@@ -58,6 +58,7 @@ const OrderForm = ({ siparisSonucu }) => {
   })
 
   const [disableButton, setDisableButton] = useState(true)
+  const [baslangicFiyati, setBaslangicFiyati] = useState(100)
 
   const changeHandler = (e) => {
     const name = e.target.name
@@ -87,6 +88,7 @@ const OrderForm = ({ siparisSonucu }) => {
 
       setSiparisDetayi({ ...siparisDetayi, [name]: value })
     }
+    fiyatBelirle()
   }
 
   useEffect(() => {
@@ -96,9 +98,6 @@ const OrderForm = ({ siparisSonucu }) => {
       .catch((err) =>
         setFormErrors({ ...formErrors, malzemeler: err.errors[0] })
       )
-
-    const toppingsFiyati = 150 + 5 * siparisDetayi.malzemeler.length
-    setSiparisDetayi({ ...siparisDetayi, fiyat: toppingsFiyati })
   }, [siparisDetayi.malzemeler])
 
   const navigate = useNavigate()
@@ -112,6 +111,17 @@ const OrderForm = ({ siparisSonucu }) => {
     })
   }
 
+  const fiyatBelirle = () => {
+    if (siparisDetayi.boy === 'Orta') {
+      setBaslangicFiyati(100)
+    } else if (siparisDetayi.boy === 'Büyük') {
+      setBaslangicFiyati(120)
+    } else if (siparisDetayi.boy === 'XL') {
+      setBaslangicFiyati(150)
+    } else {
+      setBaslangicFiyati(70)
+    }
+  }
   useEffect(() => {
     formSchema.isValid(siparisDetayi).then((valid) => {
       setDisableButton(!valid)
@@ -124,12 +134,16 @@ const OrderForm = ({ siparisSonucu }) => {
     console.log('form error >', formErrors)
   }, [formErrors])
 
+  useEffect(() => {
+    setSiparisDetayi({
+      ...siparisDetayi,
+      fiyat: baslangicFiyati + 5 * siparisDetayi.malzemeler.length,
+    })
+  }, [siparisDetayi.boy, siparisDetayi.malzemeler])
+
   return (
-    <div className="form-Container">
-      <img
-        src={require('../assets/esnek-form-banner.png')}
-        style={{ width: '18%' }}
-      />
+    <div className="form-container">
+      <img id="esnek-banner" src={require('../assets/esnek-form-banner.png')} />
       <h5 style={{ paddingTop: '1%' }}>Pizza Sipariş Formu</h5>
 
       <Form id="pizza-form" onSubmit={submitHandler}>
@@ -142,6 +156,7 @@ const OrderForm = ({ siparisSonucu }) => {
             type="text"
             name="isim"
             id="name-input"
+            data-cy="name-input"
             onChange={changeHandler}
           />
           <FormFeedback>{formErrors.isim}</FormFeedback>
@@ -154,7 +169,7 @@ const OrderForm = ({ siparisSonucu }) => {
           }}
         >
           <Col md={6}>
-            <FormGroup style={{ width: '30vw', textAlign: 'center' }}>
+            <FormGroup className="dropdown-group">
               <br />
               <h6>Pizza Boyu</h6>
               <Input
@@ -164,6 +179,7 @@ const OrderForm = ({ siparisSonucu }) => {
                 onChange={changeHandler}
                 invalid={Boolean(formErrors.boy)}
                 value={siparisDetayi.boy}
+                data-cy="size-dropdown"
               >
                 <option value="" disabled hidden>
                   Boy Seçiniz
@@ -248,23 +264,16 @@ const OrderForm = ({ siparisSonucu }) => {
           <Label for="toppings">
             <h6>Ekstra Malzemeler</h6>
             <p>
-              <i>Her malzeme 5 TL</i>
+              <i>Her ekstra malzeme 5 TL</i>
             </p>
           </Label>
 
-          <div
-            style={{
-              width: '30vw',
-              textAlign: 'justify',
-              display: 'flex',
-              flexFlow: 'row wrap',
-              justifyContent: 'space-between',
-            }}
-          >
-            {toppings.map((e) => (
-              <FormGroup check style={{ flex: '0 0 32%' }} key={e}>
+          <div className="toppings-div">
+            {toppings.map((e, i) => (
+              <FormGroup check className="checkbox-group" key={e}>
                 <Label check>
                   <Input
+                    data-cy={`checkbox${i}`}
                     type="checkbox"
                     name="malzemeler"
                     value={e}
@@ -275,15 +284,15 @@ const OrderForm = ({ siparisSonucu }) => {
                 </Label>
               </FormGroup>
             ))}
-            {formErrors.malzemeler && (
-              <p style={{ color: 'red', textAlign: 'center' }}>
-                {formErrors.malzemeler}
-              </p>
-            )}
+            <div>
+              {formErrors.malzemeler && (
+                <p style={{ color: 'red' }}>{formErrors.malzemeler}</p>
+              )}
+            </div>
           </div>
         </FormGroup>
 
-        <FormGroup style={{ textAlign: 'center', margin: '2rem 0 1rem 0' }}>
+        <FormGroup className="special-note">
           <Label for="not">
             <h6>Sipariş Notunuzu Giriniz</h6>
           </Label>
@@ -291,30 +300,26 @@ const OrderForm = ({ siparisSonucu }) => {
             type="text"
             name="not"
             id="special-text"
+            data-cy="special-text"
             onChange={changeHandler}
           />
         </FormGroup>
 
+        <div>
+          <h5 style={{ color: '#CE2829' }}>Fiyat: {siparisDetayi.fiyat}</h5>
+          <p>
+            <i>Ek Malzeme Sayısı:{siparisDetayi.malzemeler.length}</i>
+          </p>
+        </div>
+        <hr></hr>
         <Button
           disabled={disableButton}
           id="order-button"
-          style={{
-            color: '#292929',
-            backgroundColor: '#FDC913',
-            border: '0',
-            padding: '3%',
-            margin: '1rem 0',
-            borderRadius: '1rem',
-          }}
+          data-cy="order-button"
         >
           Sipariş Ver
         </Button>
       </Form>
-
-      <div>
-        <h5>Fiyat: {siparisDetayi.fiyat}</h5>
-        <p>Ek Malzeme Sayısı:{siparisDetayi.malzemeler.length}</p>
-      </div>
     </div>
   )
 }

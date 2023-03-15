@@ -1,11 +1,49 @@
-.form-Container {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    margin: auto;
-    background-color: #FAF7F2;
+.form-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  margin: auto;
+  background-color: #faf7f2;
+}
 
+#esnek-banner {
+  width: 18%;
+}
+
+.dropdown-group {
+  width: 30vw;
+  text-align: center;
+}
+
+.checkbox-group {
+  flex: 0 0 32% 0;
+}
+
+.special-note {
+  text-align: center;
+  margin: 2rem 0 1rem 0;
+}
+
+#order-button {
+  border-radius: '5rem';
+  color: #292929;
+  text-decoration: none;
+  width: 10rem;
+  background-color: #fdc913;
+  border: 0.15rem white solid;
+  padding: 1rem 2rem;
+  margin: 3vh 0 10vh 0;
+  display: flex;
+  justify-content: center;
+}
+
+.toppings-div {
+  width: 30vw;
+  text-align: justify;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
 }

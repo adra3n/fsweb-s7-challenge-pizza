@@ -5,27 +5,8 @@ import './AnaSayfa.css'
 const AnaSayfa = () => {
   return (
     <div className="anasayfa-Container">
-      <img
-        className="main-Banner"
-        src={require('../assets/food-2.png')}
-        style={{ maxWidth: '50vw', maxHeight: '50vh' }}
-      />
-      <Link
-        id="order-pizza"
-        to="/pizza"
-        style={{
-          borderRadius: '5rem',
-          color: '#292929',
-          textDecoration: 'none',
-          width: '10rem',
-          backgroundColor: '#FDC913',
-          border: '0.15rem white solid',
-          padding: '1rem 2rem',
-          margin: ' 3vh 0 10vh 0',
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
+      <img className="main-banner" src={require('../assets/food-2.png')} />
+      <Link id="order-pizza" to="/pizza" data-cy="order-pizza">
         Sipariş Ver
       </Link>
       <br></br>

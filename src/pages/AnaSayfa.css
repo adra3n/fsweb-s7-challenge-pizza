@@ -10,7 +10,20 @@
   background: url('../assets/mvp-banner.png');
 }
 
-.order-pizza {
+#order-pizza {
+  display: flex;
+  justify-content: center;
   text-decoration: none;
   color: #292929;
+  border-radius: 5rem;
+  width: 10rem;
+  background-color: #fdc913;
+  border: 0.15rem white solid;
+  padding: 1rem 2rem;
+  margin: 3vh 0 10vh 0;
+}
+
+.main-banner {
+  max-width: 50vw;
+  max-height: 50vh;
 }

@@ -3,11 +3,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #FAF7F2;
+  background-color: #faf7f2;
   box-sizing: border-box;
 }
-
-
 
 .main-Container {
   display: flex;
@@ -17,4 +15,4 @@
   align-items: center;
 }
 
-.nav-Container {}
+/* .nav-Container {} */
