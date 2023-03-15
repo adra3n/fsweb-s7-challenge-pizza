@@ -15,21 +15,6 @@ import axios from 'axios'
 import './Form.css'
 
 const OrderForm = ({ siparisSonucu }) => {
-  const toppings = [
-    'Sosis',
-    'Jambon',
-    'Mantar',
-    'Biber',
-    'Zeytin',
-    'Sucuk',
-    `Ananas`,
-    `Jalapeno`,
-    `Soğan`,
-    `Domates`,
-    `Mısır`,
-    `Sarımsak`,
-  ]
-
   const [siparisDetayi, setSiparisDetayi] = useState({
     boy: '',
     sos: '',
@@ -47,6 +32,24 @@ const OrderForm = ({ siparisSonucu }) => {
     not: '',
   })
 
+  const [disableButton, setDisableButton] = useState(true)
+  const [baslangicFiyati, setBaslangicFiyati] = useState(100)
+
+  const toppings = [
+    'Sosis',
+    'Jambon',
+    'Mantar',
+    'Biber',
+    'Zeytin',
+    'Sucuk',
+    `Ananas`,
+    `Jalapeno`,
+    `Soğan`,
+    `Domates`,
+    `Mısır`,
+    `Sarımsak`,
+  ]
+
   const formSchema = Yup.object().shape({
     isim: Yup.string()
       .required('İsim alanı zorunlu')
@@ -57,8 +60,7 @@ const OrderForm = ({ siparisSonucu }) => {
     not: Yup.string(),
   })
 
-  const [disableButton, setDisableButton] = useState(true)
-  const [baslangicFiyati, setBaslangicFiyati] = useState(100)
+  const navigate = useNavigate()
 
   const changeHandler = (e) => {
     const name = e.target.name
@@ -91,26 +93,6 @@ const OrderForm = ({ siparisSonucu }) => {
     fiyatBelirle()
   }
 
-  useEffect(() => {
-    Yup.reach(formSchema, 'malzemeler')
-      .validate(siparisDetayi.malzemeler)
-      .then(() => setFormErrors({ ...formErrors, malzemeler: '' }))
-      .catch((err) =>
-        setFormErrors({ ...formErrors, malzemeler: err.errors[0] })
-      )
-  }, [siparisDetayi.malzemeler])
-
-  const navigate = useNavigate()
-
-  const submitHandler = (e) => {
-    e.preventDefault()
-    siparisSonucu(siparisDetayi)
-    navigate('/success')
-    axios.post('https://reqres.in/api/orders', siparisDetayi).then((res) => {
-      console.log('axios post>', res.data)
-    })
-  }
-
   const fiyatBelirle = () => {
     if (siparisDetayi.boy === 'Orta') {
       setBaslangicFiyati(100)
@@ -122,6 +104,25 @@ const OrderForm = ({ siparisSonucu }) => {
       setBaslangicFiyati(70)
     }
   }
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    siparisSonucu(siparisDetayi)
+    navigate('/success')
+    axios.post('https://reqres.in/api/orders', siparisDetayi).then((res) => {
+      console.log('axios post>', res.data)
+    })
+  }
+
+  useEffect(() => {
+    Yup.reach(formSchema, 'malzemeler')
+      .validate(siparisDetayi.malzemeler)
+      .then(() => setFormErrors({ ...formErrors, malzemeler: '' }))
+      .catch((err) =>
+        setFormErrors({ ...formErrors, malzemeler: err.errors[0] })
+      )
+  }, [siparisDetayi.malzemeler])
+
   useEffect(() => {
     formSchema.isValid(siparisDetayi).then((valid) => {
       setDisableButton(!valid)
