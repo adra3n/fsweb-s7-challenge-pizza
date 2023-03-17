@@ -9,7 +9,16 @@
   background-color: #ce2829;
   background: url('../assets/mvp-banner.png');
 }
-
+.header-anasayfa > h2 {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 100;
+  color: white;
+}
+.header-anasayfa > h4 {
+  padding-top: 1rem;
+  font-family: 'Satisfy', cursive;
+  color: #fdc913;
+}
 #order-pizza {
   display: flex;
   justify-content: center;

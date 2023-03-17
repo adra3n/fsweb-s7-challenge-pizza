@@ -379,10 +379,3 @@ const OrderForm = ({ siparisSonucu }) => {
 }
 
 export default OrderForm
-
-//checkbox
-//siparisDetayi icine ekstrahizli
-//handler düzenle
-//submit ile success e gönder
-
-//
