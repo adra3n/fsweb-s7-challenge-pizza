@@ -1,0 +1,12 @@
+.nav-Container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space;
+  width: 100vw;
+  height: 10%;
+  margin: 0;
+  padding: 3vh 0 3vh 0;
+  background-color: #ce2829;
+}

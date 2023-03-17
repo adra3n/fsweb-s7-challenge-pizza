@@ -8,7 +8,14 @@ import NotFound from './pages/NotFound'
 import Layout from './layouts/Layout'
 
 const App = () => {
-  const [siparis, setSiparis] = useState({})
+  const [siparis, setSiparis] = useState({
+    boy: '',
+    sos: '',
+    malzemeler: [],
+    adet: '',
+    not: '',
+    fiyat: 70,
+  })
 
   const siparisSonucu = (e) => {
     setSiparis(e)

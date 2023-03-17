@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 import './AnaSayfa.css'
 
 const AnaSayfa = () => {
@@ -9,7 +10,6 @@ const AnaSayfa = () => {
       <Link id="order-pizza" to="/pizza" data-cy="order-pizza">
         Sipariş Ver
       </Link>
-      <br></br>
       <br></br>
     </div>
   )

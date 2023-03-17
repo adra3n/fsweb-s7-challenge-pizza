@@ -6,7 +6,14 @@
   justify-content: center;
   width: 100vw;
   margin: auto;
-  background-color: #faf7f2;
+  background-color: #ffffff;
+}
+
+.pizza-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 #esnek-banner {
@@ -14,36 +21,96 @@
 }
 
 .dropdown-group {
-  width: 30vw;
+  width: 40vw;
   text-align: center;
 }
 
 .checkbox-group {
   flex: 0 0 32% 0;
 }
+.checkbox-group {
+  flex: 0 0 32% 0;
+}
+/* .toppings-check input:checked {
+  background-color: #29a869; border:0;
+} */
 
 .special-note {
   text-align: center;
   margin: 2rem 0 1rem 0;
 }
 
-#order-button {
-  border-radius: '5rem';
-  color: #292929;
-  text-decoration: none;
-  width: 10rem;
-  background-color: #fdc913;
-  border: 0.15rem white solid;
-  padding: 1rem 2rem;
-  margin: 3vh 0 10vh 0;
-  display: flex;
-  justify-content: center;
+.special-note > input {
+  background-color: #faf7f2;
+  border: 0;
 }
-
 .toppings-div {
   width: 30vw;
   text-align: justify;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-flow: row;
+  max-width: 9vw;
+  min-width: 6vw;
+  /* text-align: justify; */
+  justify-content: flex-start;
+  /* align-items: flex-start; */
+}
+
+.bottom-container {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+
+.counter-container {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  min-width: 6vw;
+  width: 7vw;
+  height: fit-content;
+  align-items: center;
+  align-content: start;
+  text-align: center;
+  margin-top: 1rem;
+  background-color: #faf7f2;
+  border-radius: '5rem';
+}
+.toplam-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: fit-content;
+  background-color: #faf7f2;
+  border-radius: '5rem';
+  margin-top: 1rem;
+  width: 70%;
+}
+#order-button {
+  border-radius: '5rem';
+  color: #292929;
+  text-decoration: none;
+  background-color: #fdc913;
+  border: 0.15rem white solid;
+  padding: 1rem 2rem;
+  margin: 3vh 0 0 0;
+  width: 100%;
+}
+@media only screen and (max-width: 800px) {
+  .bottom-container {
+    flex-flow: column wrap;
+  }
+  .toplam-container {
+    width: 90vw;
+  }
+  .counter-container {
+    width: 90vw;
+  }
 }

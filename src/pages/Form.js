@@ -21,7 +21,8 @@ const OrderForm = ({ siparisSonucu }) => {
     malzemeler: [],
     adet: '',
     not: '',
-    fiyat: 100,
+    fiyat: 70,
+    // ekstraHizli: false,
   })
 
   const [formErrors, setFormErrors] = useState({
@@ -29,11 +30,10 @@ const OrderForm = ({ siparisSonucu }) => {
     boy: '',
     sos: '',
     malzemeler: '',
-    not: '',
   })
 
   const [disableButton, setDisableButton] = useState(true)
-  const [baslangicFiyati, setBaslangicFiyati] = useState(100)
+  const [baslangicFiyati, setBaslangicFiyati] = useState(70)
 
   const toppings = [
     'Sosis',
@@ -109,9 +109,15 @@ const OrderForm = ({ siparisSonucu }) => {
     e.preventDefault()
     siparisSonucu(siparisDetayi)
     navigate('/success')
-    axios.post('https://reqres.in/api/orders', siparisDetayi).then((res) => {
-      console.log('axios post>', res.data)
-    })
+    axios
+      .post('https://reqres.in/api/orders', siparisDetayi)
+      .then((res) => {
+        console.log('axios post>', res.data)
+        // siparisSonucu(res.data)
+      })
+      .catch((err) => {
+        console.log('axios err>', err)
+      })
   }
 
   useEffect(() => {
@@ -127,8 +133,7 @@ const OrderForm = ({ siparisSonucu }) => {
     formSchema.isValid(siparisDetayi).then((valid) => {
       setDisableButton(!valid)
     })
-
-    console.log('siparis detayi >', siparisDetayi)
+    // console.log('siparis detayi >', siparisDetayi)
   }, [siparisDetayi])
 
   useEffect(() => {
@@ -150,6 +155,7 @@ const OrderForm = ({ siparisSonucu }) => {
       <Form id="pizza-form" onSubmit={submitHandler}>
         <FormGroup style={{ textAlign: 'center', margin: '1rem 0 1rem 0' }}>
           <Label for="isim">
+            {/* htmlFor diye düzenlenecek */}
             <h6>İsminiz</h6>
           </Label>
           <Input
@@ -159,6 +165,7 @@ const OrderForm = ({ siparisSonucu }) => {
             id="name-input"
             data-cy="name-input"
             onChange={changeHandler}
+            placeholder="İsminizi Giriniz"
           />
           <FormFeedback>{formErrors.isim}</FormFeedback>
           <hr />
@@ -271,9 +278,11 @@ const OrderForm = ({ siparisSonucu }) => {
 
           <div className="toppings-div">
             {toppings.map((e, i) => (
-              <FormGroup check className="checkbox-group" key={e}>
+              <FormGroup check key={e} style={{ flex: '0 0 32%' }}>
                 <Label check>
                   <Input
+                    className="toppings-check"
+                    // style={{ backgroundColor: '#FDC913', border: "0" }}
                     data-cy={`checkbox${i}`}
                     type="checkbox"
                     name="malzemeler"
@@ -285,44 +294,97 @@ const OrderForm = ({ siparisSonucu }) => {
                 </Label>
               </FormGroup>
             ))}
-            <div>
-              {formErrors.malzemeler && (
-                <p style={{ color: 'red' }}>{formErrors.malzemeler}</p>
-              )}
-            </div>
+          </div>
+          <div>
+            {formErrors.malzemeler && (
+              <p style={{ color: 'red' }}>{formErrors.malzemeler}</p>
+            )}
           </div>
         </FormGroup>
 
         <FormGroup className="special-note">
-          <Label for="not">
+          <Label
+            for="not"
+            style={{ display: 'flex', justifyContent: 'flex-start' }}
+          >
             <h6>Sipariş Notunuzu Giriniz</h6>
           </Label>
           <Input
+            size="sm"
+            style={{ height: '4rem' }}
             type="text"
             name="not"
             id="special-text"
             data-cy="special-text"
+            placeholder="
+            Ayrıca belirtmek istediğiniz detayları buraya yazabilirsiniz."
             onChange={changeHandler}
           />
         </FormGroup>
-
-        <div>
-          <h5 style={{ color: '#CE2829' }}>Fiyat: {siparisDetayi.fiyat}</h5>
-          <p>
-            <i>Ek Malzeme Sayısı:{siparisDetayi.malzemeler.length}</i>
-          </p>
-        </div>
         <hr></hr>
-        <Button
-          disabled={disableButton}
-          id="order-button"
-          data-cy="order-button"
-        >
-          Sipariş Ver
-        </Button>
+        {/* <FormGroup check key={e}>
+          <Label check>
+            <Input
+              data-cy={`checkbox${i}`}
+              type="checkbox"
+              name="malzemeler"
+              value={e}
+              onChange={changeHandler}
+              invalid={Boolean(formErrors.malzemeler[0])}
+            />
+            {e}
+          </Label>
+        </FormGroup> */}
+
+        <div className="bottom-container">
+          <div className="counter-container">
+            <Button
+              style={{
+                backgroundColor: '#faf7f2',
+                color: '#292929',
+                border: '0',
+              }}
+            >
+              +
+            </Button>
+            <h5 style={{ marginBottom: '0' }}> 1 </h5>
+            <Button
+              style={{
+                backgroundColor: '#faf7f2',
+                color: '#292929',
+                border: '0',
+              }}
+            >
+              -
+            </Button>
+          </div>
+          <div className="toplam-container">
+            <p>
+              <i>Ek Malzeme Sayısı: {siparisDetayi.malzemeler.length}</i>
+            </p>
+            <p>
+              <i>Seçimler: {siparisDetayi.malzemeler.length * 5}₺</i>
+            </p>
+            <h5 style={{ color: '#CE2829' }}>Toplam: {siparisDetayi.fiyat}₺</h5>{' '}
+            <Button
+              disabled={disableButton}
+              id="order-button"
+              data-cy="order-button"
+            >
+              Sipariş Ver
+            </Button>
+          </div>
+        </div>
       </Form>
     </div>
   )
 }
 
 export default OrderForm
+
+//checkbox
+//siparisDetayi icine ekstrahizli
+//handler düzenle
+//submit ile success e gönder
+
+//

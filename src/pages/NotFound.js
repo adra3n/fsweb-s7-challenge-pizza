@@ -30,7 +30,7 @@ const NotFound = () => {
                 <span class="text-danger">Eyvah!</span> Bir sorun var.
               </p>
               <p class="lead">Aradığınız URL bulunamadı.</p>
-              <a href="index.html" class="btn btn-warning">
+              <a href="/" class="btn btn-warning">
                 Geri Git
               </a>
             </div>
