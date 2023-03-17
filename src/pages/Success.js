@@ -12,23 +12,15 @@ const Success = ({ siparis }) => {
           Merhaba
           <span style={{ color: '#CE2829' }}> {siparis.isim}!</span>
         </h4>
-
         <br></br>
-
         <h5>Siparişinizin Detayları:</h5>
-
         <br></br>
-
         <h6>Pizzanızın Boyutu:</h6>
-
         <p> {siparis.boy}</p>
         <br></br>
-
-        <h6>Sos Tercihi:</h6>
-
-        <p>{siparis.sos}</p>
+        <h6>Hamur Tercihi:</h6>
+        <p>{siparis.hamur}</p>
         <br></br>
-
         {siparis.malzemeler[0] ? (
           <>
             <h6>Ek Malzeme Tercihleriniz:</h6>
@@ -44,12 +36,14 @@ const Success = ({ siparis }) => {
             <br></br>
           </>
         )}
-
+        <h6>Ekstra Hızlı Servis:</h6>
+        {siparis.hizli ? <p>İstenmedi</p> : <p>İstendi</p>}
+        <br />
+        <br />
         <h6>Sipariş Notunuz:</h6>
         <p>{siparis.not}</p>
         <br />
         <br />
-
         <div>
           <h5 style={{ color: '#CE2829' }}>Fiyatı: {siparis.fiyat}</h5>
         </div>

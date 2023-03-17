@@ -21,7 +21,7 @@
 }
 
 .dropdown-group {
-  width: 40vw;
+  /* width: 40vw; */
   text-align: center;
 }
 
@@ -44,6 +44,13 @@
   background-color: #faf7f2;
   border: 0;
 }
+
+.toppings-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
 .toppings-div {
   width: 30vw;
   text-align: justify;

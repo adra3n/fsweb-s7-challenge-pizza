@@ -9,8 +9,9 @@ import Layout from './layouts/Layout'
 
 const App = () => {
   const [siparis, setSiparis] = useState({
+    isim: '',
     boy: '',
-    sos: '',
+    hamur: '',
     malzemeler: [],
     adet: '',
     not: '',

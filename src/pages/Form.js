@@ -16,19 +16,20 @@ import './Form.css'
 
 const OrderForm = ({ siparisSonucu }) => {
   const [siparisDetayi, setSiparisDetayi] = useState({
+    isim: '',
     boy: '',
-    sos: '',
+    hamur: '',
     malzemeler: [],
     adet: '',
     not: '',
     fiyat: 70,
-    // ekstraHizli: false,
+    hizli: false,
   })
 
   const [formErrors, setFormErrors] = useState({
     isim: '',
     boy: '',
-    sos: '',
+    hamur: '',
     malzemeler: '',
   })
 
@@ -55,7 +56,7 @@ const OrderForm = ({ siparisSonucu }) => {
       .required('İsim alanı zorunlu')
       .min(2, 'En az 2 harf olmalı'),
     boy: Yup.string().required('Pizza boyunuzu seçmeniz gerekiyor.'),
-    sos: Yup.string().required('Pizza sosu seçmeniz gerekiyor.'),
+    hamur: Yup.string().required('Hamur tipi seçmeniz gerekiyor.'),
     malzemeler: Yup.array().max(10, 'En fazla 10 malzeme seçebilirsiniz.'),
     not: Yup.string(),
   })
@@ -89,20 +90,20 @@ const OrderForm = ({ siparisSonucu }) => {
         })
 
       setSiparisDetayi({ ...siparisDetayi, [name]: value })
-    }
-    fiyatBelirle()
-  }
 
-  const fiyatBelirle = () => {
-    if (siparisDetayi.boy === 'Orta') {
-      setBaslangicFiyati(100)
-    } else if (siparisDetayi.boy === 'Büyük') {
-      setBaslangicFiyati(120)
-    } else if (siparisDetayi.boy === 'XL') {
-      setBaslangicFiyati(150)
-    } else {
-      setBaslangicFiyati(70)
+      if (e.target.value === 'Orta') {
+        setBaslangicFiyati(90)
+      }
+      if (e.target.value === 'Büyük') {
+        setBaslangicFiyati(110)
+      }
+      if (e.target.value === 'Küçük') {
+        setBaslangicFiyati(70)
+      }
     }
+  }
+  const hizliHandler = (e) => {
+    setSiparisDetayi({ ...siparisDetayi, hizli: e.target.checked })
   }
 
   const submitHandler = (e) => {
@@ -134,6 +135,7 @@ const OrderForm = ({ siparisSonucu }) => {
       setDisableButton(!valid)
     })
     // console.log('siparis detayi >', siparisDetayi)
+    console.log('siparisDetayi >', siparisDetayi)
   }, [siparisDetayi])
 
   useEffect(() => {
@@ -171,108 +173,104 @@ const OrderForm = ({ siparisSonucu }) => {
           <hr />
         </FormGroup>
         <h5>Pizzanızın detaylarını seçiniz!</h5>
+        <br></br>
         <Row
           style={{
             textAlign: 'justify',
           }}
         >
+          {' '}
           <Col md={6}>
+            <h6>Boy Seçiniz</h6>
+            <FormGroup
+              tag="fieldset"
+              style={{
+                textAlign: 'justify',
+                display: 'flex',
+                flexDirection: 'column',
+                width: '10vw',
+              }}
+            >
+              <Row
+                style={{
+                  textAlign: 'justify',
+                }}
+              >
+                <Col md={4}>
+                  <FormGroup check>
+                    <Input
+                      name="boy"
+                      type="radio"
+                      value="Küçük"
+                      invalid={Boolean(formErrors.boy)}
+                      onChange={changeHandler}
+                    />{' '}
+                    <Label check>Küçük</Label>
+                    <FormFeedback>{formErrors.boy}</FormFeedback>
+                  </FormGroup>
+                </Col>
+                <Col md={4}>
+                  <FormGroup check>
+                    <Input
+                      name="boy"
+                      type="radio"
+                      value="Orta"
+                      onChange={changeHandler}
+                      invalid={Boolean(formErrors.boy)}
+                    />{' '}
+                    <Label check>Orta</Label>
+                    <FormFeedback>{formErrors.boy}</FormFeedback>
+                  </FormGroup>
+                </Col>
+                <Col md={4}>
+                  <FormGroup check>
+                    <Input
+                      name="boy"
+                      type="radio"
+                      value="Büyük"
+                      onChange={changeHandler}
+                      invalid={Boolean(formErrors.boy)}
+                    />{' '}
+                    <Label check>Büyük</Label>
+                    <FormFeedback>{formErrors.boy}</FormFeedback>
+                  </FormGroup>
+                </Col>
+              </Row>
+            </FormGroup>
+          </Col>
+          <Col md={6}>
+            <h6>Hamur Tipi</h6>
             <FormGroup className="dropdown-group">
-              <br />
-              <h6>Pizza Boyu</h6>
               <Input
                 id="size-dropdown"
-                name="boy"
+                name="hamur"
                 type="select"
                 onChange={changeHandler}
-                invalid={Boolean(formErrors.boy)}
-                value={siparisDetayi.boy}
+                invalid={Boolean(formErrors.hamur)}
+                value={siparisDetayi.hamur}
                 data-cy="size-dropdown"
               >
                 <option value="" disabled hidden>
-                  Boy Seçiniz
+                  Hamur Tipi
                 </option>
-                <option value="Küçük">Küçük</option>
-                <option value="Orta">Orta</option>
-                <option value="Büyük">Büyük</option>
-                <option value="XL">XL</option>
+                <option value="İnce">İnce</option>
+                <option value="Kalın">Kalın</option>
               </Input>
-              <FormFeedback>{formErrors.boy}</FormFeedback>
-            </FormGroup>
+              <FormFeedback>{formErrors.hamur}</FormFeedback>
+            </FormGroup>{' '}
+            <br></br>
           </Col>
         </Row>
-        <h6>Sosunuzu Seçiniz</h6>
-        <FormGroup
-          tag="fieldset"
-          style={{
-            textAlign: 'justify',
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
-          <Row
-            style={{
-              textAlign: 'justify',
-            }}
-          >
-            <Col md={6}>
-              <FormGroup check>
-                <Input
-                  name="sos"
-                  type="radio"
-                  value="Original Red"
-                  invalid={Boolean(formErrors.sos)}
-                  onChange={changeHandler}
-                />{' '}
-                <Label check>Original Red</Label>
-                <FormFeedback>{formErrors.sos}</FormFeedback>
-              </FormGroup>
-
-              <FormGroup check>
-                <Input
-                  name="sos"
-                  type="radio"
-                  value="Garlic Ranc"
-                  onChange={changeHandler}
-                  invalid={Boolean(formErrors.sos)}
-                />{' '}
-                <Label check>Garlic Ranch</Label>
-                <FormFeedback>{formErrors.sos}</FormFeedback>
-              </FormGroup>
-            </Col>
-            <Col md={6}>
-              <FormGroup check>
-                <Input
-                  name="sos"
-                  type="radio"
-                  value="BBQ Sauce"
-                  onChange={changeHandler}
-                  invalid={Boolean(formErrors.sos)}
-                />{' '}
-                <Label check>BBQ Sauce</Label>
-                <FormFeedback>{formErrors.sos}</FormFeedback>
-              </FormGroup>
-
-              <FormGroup check>
-                <Input
-                  name="sos"
-                  type="radio"
-                  value="Spinach Alfredo"
-                  onChange={changeHandler}
-                  invalid={Boolean(formErrors.sos)}
-                />{' '}
-                <Label check>Spinach Alfredo</Label>
-                <FormFeedback>{formErrors.sos}</FormFeedback>
-              </FormGroup>
-            </Col>
-          </Row>
-        </FormGroup>
 
         <FormGroup>
-          <Label for="toppings">
-            <h6>Ekstra Malzemeler</h6>
+          <Label
+            className="toppings-label"
+            for="toppings"
+            style={{ justifyContent: 'flex-start', textAlign: 'justify' }}
+          >
+            <h6>Ek Malzemeler</h6>
             <p>
-              <i>Her ekstra malzeme 5 TL</i>
+              <i>Her ek malzeme 5 TL</i>
             </p>
           </Label>
 
@@ -282,7 +280,7 @@ const OrderForm = ({ siparisSonucu }) => {
                 <Label check>
                   <Input
                     className="toppings-check"
-                    // style={{ backgroundColor: '#FDC913', border: "0" }}
+                    // style={{ backgroundColor: '#FDC913', border: '0' }}
                     data-cy={`checkbox${i}`}
                     type="checkbox"
                     name="malzemeler"
@@ -300,6 +298,7 @@ const OrderForm = ({ siparisSonucu }) => {
               <p style={{ color: 'red' }}>{formErrors.malzemeler}</p>
             )}
           </div>
+          <br />
         </FormGroup>
 
         <FormGroup className="special-note">
@@ -310,53 +309,52 @@ const OrderForm = ({ siparisSonucu }) => {
             <h6>Sipariş Notunuzu Giriniz</h6>
           </Label>
           <Input
-            size="sm"
             style={{ height: '4rem' }}
             type="text"
             name="not"
             id="special-text"
             data-cy="special-text"
             placeholder="
-            Ayrıca belirtmek istediğiniz detayları buraya yazabilirsiniz."
+            Sipariş Notu"
             onChange={changeHandler}
           />
         </FormGroup>
         <hr></hr>
-        {/* <FormGroup check key={e}>
-          <Label check>
-            <Input
-              data-cy={`checkbox${i}`}
-              type="checkbox"
-              name="malzemeler"
-              value={e}
-              onChange={changeHandler}
-              invalid={Boolean(formErrors.malzemeler[0])}
-            />
-            {e}
-          </Label>
-        </FormGroup> */}
 
         <div className="bottom-container">
-          <div className="counter-container">
-            <Button
-              style={{
-                backgroundColor: '#faf7f2',
-                color: '#292929',
-                border: '0',
-              }}
-            >
-              +
-            </Button>
-            <h5 style={{ marginBottom: '0' }}> 1 </h5>
-            <Button
-              style={{
-                backgroundColor: '#faf7f2',
-                color: '#292929',
-                border: '0',
-              }}
-            >
-              -
-            </Button>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div className="counter-container">
+              <Button
+                style={{
+                  backgroundColor: '#faf7f2',
+                  color: '#292929',
+                  border: '0',
+                }}
+              >
+                -
+              </Button>
+              <h5 style={{ marginBottom: '0' }}> 1 </h5>
+              <Button
+                style={{
+                  backgroundColor: '#faf7f2',
+                  color: '#292929',
+                  border: '0',
+                }}
+              >
+                +
+              </Button>
+            </div>
+            <FormGroup check style={{ marginTop: '2rem', textAlign: 'start' }}>
+              <Label check>
+                <Input
+                  type="checkbox"
+                  name="hizli"
+                  onChange={hizliHandler}
+                  invalid={Boolean(formErrors.hizli)}
+                />
+                Ekstra Hızlı
+              </Label>
+            </FormGroup>
           </div>
           <div className="toplam-container">
             <p>
