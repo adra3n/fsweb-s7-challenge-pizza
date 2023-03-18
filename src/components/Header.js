@@ -7,7 +7,7 @@ const Header = () => {
       <nav className="nav-Container">
         <h1>
           <Link style={{ textDecoration: 'none', color: 'white' }} to={'/'}>
-            Teknolojik Yemekler
+            <img src={require('../assets/logo.svg')} />
           </Link>
         </h1>
       </nav>

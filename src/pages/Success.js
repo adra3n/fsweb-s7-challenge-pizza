@@ -25,37 +25,73 @@ const Success = ({ siparis }) => {
           Merhaba
           <span style={{ color: '#FDC913' }}> {siparis.isim}!</span>
         </h4>
-        <br></br>
-        <h5>Siparişinizin Detayları:</h5>
-        <br></br>
-        <h6>Pizzanızın Boyutu:</h6>
-        <p> {siparis.boy}</p>
-        <br></br>
-        <h6>Hamur Tercihi:</h6>
-        <p>{siparis.hamur}</p>
-        <br></br>
+
+        <h6>Siparişinizin Detayları:</h6>
+
+        <div className="success-row">
+          <p>Boyut:</p>
+          <p>
+            <b>{siparis.boy}</b>
+          </p>
+        </div>
+        <div className="success-row">
+          <p>Hamur Tercihi:</p>
+          <p>
+            <b>{siparis.hamur}</b>
+          </p>
+        </div>
+        <div className="success-row">
+          <p>Hamur Tercihi:</p>
+          <p>
+            <b>{siparis.hamur}</b>
+          </p>
+        </div>
+
         {siparis.malzemeler[0] ? (
-          <>
-            <h6>Ek Malzeme Tercihleriniz:</h6>
+          <div className="success-row">
+            <p>Ek Malzemeler:</p>
 
-            <p>{siparis.malzemeler.join(', ')} </p>
-            <br></br>
-          </>
+            <p>
+              <b>{siparis.malzemeler.join(', ')} </b>
+            </p>
+          </div>
         ) : (
-          <>
-            <h6>Ek Malzeme Tercihleriniz:</h6>
+          <div className="success-row">
+            <p>Ek Malzemeler:</p>
 
-            <p>Bulunmamaktadır.</p>
-          </>
+            <p>
+              <b>Bulunmamaktadır.</b>
+            </p>
+          </div>
         )}
-        <h6>Ekstra Hızlı Servis:</h6>
-        {siparis.hizli ? <p>İstenmedi</p> : <p>İstendi</p>}
+        <div className="success-row">
+          {' '}
+          <p>Ekstra Hızlı Servis:</p>
+          {siparis.hizli ? (
+            <p>
+              <b>İstendi</b>
+            </p>
+          ) : (
+            <p>
+              <b>İstenmedi</b>
+            </p>
+          )}
+        </div>
+        <div className="success-row">
+          <p>Sipariş Notunuz:</p>
+          {siparis.not ? (
+            <p>
+              <b>{siparis.not}</b>
+            </p>
+          ) : (
+            <p>
+              <b>Bulunmamaktadır.</b>
+            </p>
+          )}
+        </div>
 
-        <h6>Sipariş Notunuz:</h6>
-        {siparis.malzemeler[0] ? <p>{siparis.not}</p> : <p>Bulunmamaktadır.</p>}
-
-        <div className="fiyat-container">
-          <h5
+        <div id="fiyat-container">
+          <h6
             style={{
               textAlign: 'justify',
               display: 'flex',
@@ -63,14 +99,14 @@ const Success = ({ siparis }) => {
             }}
           >
             Sipariş Toplamı
-          </h5>
+          </h6>
           <div className="fiyat-row">
-            <h6>Seçimler:</h6>
-            <h6> {siparis.malzemeler.length * 5}₺</h6>{' '}
+            <p>Seçimler:</p>
+            <p> {siparis.malzemeler.length * 5}₺</p>{' '}
           </div>
           <div className="fiyat-row" style={{ color: '#FDC913' }}>
-            <h6>Fiyatı: </h6>
-            <h6>{siparis.fiyat}₺</h6>
+            <p>Toplam: </p>
+            <p>{siparis.fiyat}₺</p>
           </div>
         </div>
         <hr></hr>

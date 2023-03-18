@@ -20,7 +20,7 @@ const OrderForm = ({ siparisSonucu }) => {
     boy: '',
     hamur: '',
     malzemeler: [],
-    adet: '',
+    adet: 1,
     not: '',
     fiyat: 70,
     hizli: false,
@@ -35,6 +35,7 @@ const OrderForm = ({ siparisSonucu }) => {
 
   const [disableButton, setDisableButton] = useState(true)
   const [baslangicFiyati, setBaslangicFiyati] = useState(70)
+  const [siparisAdet, setSiparisAdet] = useState(1)
 
   const toppings = [
     'Sosis',
@@ -143,11 +144,19 @@ const OrderForm = ({ siparisSonucu }) => {
   }, [formErrors])
 
   useEffect(() => {
+    setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })
+    console.log('useEff adet>', siparisAdet)
     setSiparisDetayi({
       ...siparisDetayi,
-      fiyat: baslangicFiyati + 5 * siparisDetayi.malzemeler.length,
+      fiyat:
+        (baslangicFiyati + 5 * siparisDetayi.malzemeler.length) * siparisAdet,
     })
-  }, [siparisDetayi.boy, siparisDetayi.malzemeler])
+  }, [
+    siparisDetayi.boy,
+    siparisDetayi.malzemeler,
+    siparisAdet,
+    siparisDetayi.fiyat,
+  ])
 
   return (
     <div className="form-container">
@@ -219,7 +228,6 @@ const OrderForm = ({ siparisSonucu }) => {
                       invalid={Boolean(formErrors.boy)}
                     />{' '}
                     <Label check>Orta</Label>
-                    <FormFeedback>{formErrors.boy}</FormFeedback>
                   </FormGroup>
                 </Col>
                 <Col md={4}>
@@ -232,7 +240,6 @@ const OrderForm = ({ siparisSonucu }) => {
                       invalid={Boolean(formErrors.boy)}
                     />{' '}
                     <Label check>Büyük</Label>
-                    <FormFeedback>{formErrors.boy}</FormFeedback>
                   </FormGroup>
                 </Col>
               </Row>
@@ -325,24 +332,20 @@ const OrderForm = ({ siparisSonucu }) => {
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div className="counter-container">
               <Button
-                style={{
-                  backgroundColor: '#faf7f2',
-                  color: '#292929',
-                  border: '0',
+                onClick={() => {
+                  siparisAdet > 1
+                    ? setSiparisAdet(siparisAdet - 1)
+                    : setSiparisAdet(1)
                 }}
               >
                 -
               </Button>
-              <h5 style={{ marginBottom: '0' }}> 1 </h5>
-              <Button
-                style={{
-                  backgroundColor: '#faf7f2',
-                  color: '#292929',
-                  border: '0',
-                }}
-              >
-                +
-              </Button>
+
+              <h5 style={{ marginBottom: '0' }}>
+                {siparisAdet ? siparisAdet : 1}
+              </h5>
+
+              <Button onClick={() => setSiparisAdet(siparisAdet + 1)}>+</Button>
             </div>
             <FormGroup check style={{ marginTop: '2rem', textAlign: 'start' }}>
               <Label check>
@@ -357,13 +360,38 @@ const OrderForm = ({ siparisSonucu }) => {
             </FormGroup>
           </div>
           <div className="toplam-container">
-            <p>
-              <i>Ek Malzeme Sayısı: {siparisDetayi.malzemeler.length}</i>
-            </p>
-            <p>
-              <i>Seçimler: {siparisDetayi.malzemeler.length * 5}₺</i>
-            </p>
-            <h5 style={{ color: '#CE2829' }}>Toplam: {siparisDetayi.fiyat}₺</h5>{' '}
+            <div>
+              <p>
+                <b>Siparis Toplamı</b>
+              </p>
+            </div>
+            <div>
+              <p>
+                <i>Ek Malzeme Sayısı: </i>
+              </p>
+              <p>
+                <i>{siparisDetayi.malzemeler.length}</i>
+              </p>
+            </div>
+            <div>
+              <p>
+                <i>Seçimler: </i>
+              </p>
+              <p>
+                <i>{siparisDetayi.malzemeler.length * 5}₺</i>
+              </p>
+            </div>
+            <div
+              style={{
+                color: '#CE2829',
+                display: 'flex',
+              }}
+            >
+              <h6>Toplam: </h6>
+              <h6>
+                {siparisDetayi.fiyat !== undefined ? siparisDetayi.fiyat : 1}₺
+              </h6>
+            </div>
             <Button
               disabled={disableButton}
               id="order-button"

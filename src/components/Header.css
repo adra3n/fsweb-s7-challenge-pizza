@@ -4,10 +4,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space;
+  justify-content: center;
   width: 100%;
-  height: 10%;
-  margin: 0;
-  padding: 3vh 0 3vh 0;
+  height: 10vh;
   background-color: #ce2829;
+}
+
+@media only screen and (max-width: 800px) {
+  img {
+    width: 50%;
+  }
 }

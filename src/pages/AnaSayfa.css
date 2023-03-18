@@ -4,10 +4,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 85vh;
+  /* min-height: 85vh; */
   text-decoration: none;
   background-color: #ce2829;
   background: url('../assets/mvp-banner.png');
+  /* height: 100%; */
+  height: 90vh;
 }
 .header-anasayfa > h2 {
   font-family: 'Barlow', sans-serif;

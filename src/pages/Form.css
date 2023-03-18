@@ -5,8 +5,9 @@
   align-items: center;
   justify-content: center;
   width: 100vw;
-  margin: auto;
+
   background-color: #ffffff;
+  height: 100%;
 }
 
 .pizza-form {
@@ -14,6 +15,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #ffffff;
 }
 
 #esnek-banner {
@@ -23,10 +25,12 @@
 .dropdown-group {
   /* width: 40vw; */
   text-align: center;
+  background-color: #ffffff;
 }
 
 .checkbox-group {
   flex: 0 0 32% 0;
+  background-color: #ffffff;
 }
 .checkbox-group {
   flex: 0 0 32% 0;
@@ -37,7 +41,7 @@
 
 .special-note {
   text-align: center;
-  margin: 2rem 0 1rem 0;
+  padding: 2rem 0 1rem 0;
 }
 
 .special-note > input {
@@ -85,21 +89,33 @@
   align-items: center;
   align-content: start;
   text-align: center;
-  margin-top: 1rem;
+  padding-top: 1rem;
   background-color: #faf7f2;
   border-radius: '5rem';
+}
+.counter-container button {
+  background-color: #faf7f2;
+  color: #292929;
+  border: 0;
 }
 .toplam-container {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  height: fit-content;
+  /* height: fit-content; */
   background-color: #faf7f2;
   border-radius: '5rem';
-  margin-top: 1rem;
+  padding-top: 1rem;
   width: 70%;
 }
+.toplam-container div {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 #order-button {
   border-radius: '5rem';
   color: #292929;
