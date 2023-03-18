@@ -3,22 +3,9 @@ import './Success.css'
 
 const Success = ({ siparis }) => {
   return (
-    <div className="success-Container">
-      <h4
-        style={{ fontFamily: 'Satisfy', textAlign: 'center', color: '#FDC913' }}
-      >
-        lezzetin yolda
-      </h4>
-      <h1
-        style={{
-          textAlign: 'center',
-          background: '#CE2829',
-          fontFamily: 'Barlow',
-          color: 'white',
-        }}
-      >
-        SİPARİŞ ALINDI.
-      </h1>
+    <div className="success-container">
+      <h4>lezzetin yolda</h4>
+      <h1>SİPARİŞ ALINDI.</h1>
       <hr style={{ color: 'white' }}></hr>
       <h4 style={{ color: 'white', fontFamily: 'Satisfy', fontWeight: 100 }}>
         Merhaba
@@ -26,8 +13,10 @@ const Success = ({ siparis }) => {
       </h4>
       <div className="siparis-container">
         <h6 style={{ textAlign: 'center' }}>Siparişinin Detayları:</h6>
-        <br></br>
 
+        <br></br>
+        <h6 style={{ textAlign: 'center' }}>{siparis.adet} Adet</h6>
+        <br></br>
         <div className="success-row">
           <p>Boyut:</p>
           <p>

@@ -161,12 +161,17 @@ const OrderForm = ({ siparisSonucu }) => {
   return (
     <div className="form-container">
       <img id="esnek-banner" src={require('../assets/esnek-form-banner.png')} />
-      <h5 style={{ paddingTop: '1%' }}>Pizza Sipariş Formu</h5>
+      <h5
+        style={{
+          paddingTop: '1%',
+        }}
+      >
+        Pizza Sipariş Formu
+      </h5>
 
       <Form id="pizza-form" onSubmit={submitHandler}>
         <FormGroup style={{ textAlign: 'center', margin: '1rem 0 1rem 0' }}>
           <Label for="isim">
-            {/* htmlFor diye düzenlenecek */}
             <h6>İsminiz</h6>
           </Label>
           <Input
@@ -181,7 +186,8 @@ const OrderForm = ({ siparisSonucu }) => {
           <FormFeedback>{formErrors.isim}</FormFeedback>
           <hr />
         </FormGroup>
-        <h5>Pizzanızın detaylarını seçiniz!</h5>
+        <br></br>
+        <h5 style={{ textAlign: 'start' }}>Pizzanızın detaylarını seçiniz!</h5>
         <br></br>
         <Row
           style={{

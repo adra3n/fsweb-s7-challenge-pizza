@@ -1,4 +1,4 @@
-.success-Container {
+.success-container {
   background-color: #ce2829;
   display: flex;
   flex-direction: column;
@@ -8,13 +8,21 @@
   min-height: 90vh;
   padding: 5vh 0 10vh 0;
 }
+.success-container > h1 {
+  font-family: 'Barlow', sans-serif;
+  font-weight: 100;
+  color: white;
+}
+.success-container > h4 {
+  font-family: 'Satisfy';
+  color: #fdc913;
+}
 .siparis-container {
   text-align: center;
   padding: 2% 0 4% 0;
   display: flex;
   flex-flow: column wrap;
   align-items: center;
-  /* width: 30%; */
   min-width: 30%;
   color: white;
   border-top: white 1px solid;
@@ -28,27 +36,28 @@
   justify-content: space-between;
   width: 40%;
   max-width: 15rem;
-  font-size: smaller;
+  font-size: small;
   align-items: center;
   text-align: start;
 }
 #fiyat-container {
-  min-width: 40%;
+  min-width: 15rem;
   display: flex;
   flex-direction: column;
   border: solid 1px white;
   padding: 2rem;
   align-items: start;
-  font-size: smaller;
-  max-width: 15rem;
+  font-size: small;
+  width: 20rem;
+  max-width: 35vw;
   max-height: 10rem;
-
   align-items: center;
+  justify-content: center;
 }
 .fiyat-row,
 #fiyat-container div {
   min-width: 5rem;
-  width: 50%;
+  width: 40%;
   display: flex;
   align-items: center;
   flex-direction: row;
