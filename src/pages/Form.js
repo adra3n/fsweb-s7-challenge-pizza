@@ -144,19 +144,35 @@ const OrderForm = ({ siparisSonucu }) => {
   }, [formErrors])
 
   useEffect(() => {
-    setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })
-    console.log('useEff adet>', siparisAdet)
     setSiparisDetayi({
       ...siparisDetayi,
-      fiyat:
-        (baslangicFiyati + 5 * siparisDetayi.malzemeler.length) * siparisAdet,
+      fiyat:(baslangicFiyati *siparisDetayi.adet + 5 * siparisDetayi.malzemeler.length)*siparisDetayi.adet
     })
+
   }, [
+    baslangicFiyati,
     siparisDetayi.boy,
     siparisDetayi.malzemeler,
     siparisAdet,
+    siparisDetayi.adet,
     siparisDetayi.fiyat,
   ])
+
+  useEffect(()=>{
+setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })
+  },[  siparisDetayi.adet,siparisAdet])
+
+  const counterPlusHandler = (e) => {
+    setSiparisAdet(siparisAdet + parseInt(e.target.value))  
+     setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })
+  }
+
+  const counterMinusHandler = (e) => {
+    siparisAdet > 1
+      ? setSiparisAdet(siparisAdet + parseInt(e.target.value))
+      : setSiparisAdet(1)
+   setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })    
+  }
 
   return (
     <div className="form-container">
@@ -338,20 +354,16 @@ const OrderForm = ({ siparisSonucu }) => {
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div className="counter-container">
               <Button
-                onClick={() => {
-                  siparisAdet > 1
-                    ? setSiparisAdet(siparisAdet - 1)
-                    : setSiparisAdet(1)
-                }}
+            value={-1}
+                onClick={counterMinusHandler}
               >
                 -
               </Button>
-
               <h5 style={{ marginBottom: '0' }}>
-                {siparisAdet ? siparisAdet : 1}
+                {siparisAdet}
               </h5>
-
-              <Button onClick={() => setSiparisAdet(siparisAdet + 1)}>+</Button>
+              <Button  value={1} onClick={counterPlusHandler}>+</Button>{' '}
+              
             </div>
             <FormGroup check style={{ marginTop: '2rem', textAlign: 'start' }}>
               <Label check>

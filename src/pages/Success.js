@@ -29,13 +29,6 @@ const Success = ({ siparis }) => {
             <b>{siparis.hamur}</b>
           </p>
         </div>
-        <div className="success-row">
-          <p>Hamur Tercihi:</p>
-          <p>
-            <b>{siparis.hamur}</b>
-          </p>
-        </div>
-
         {siparis.malzemeler[0] ? (
           <div className="success-row">
             <p>Ek Malzemeler:</p>
