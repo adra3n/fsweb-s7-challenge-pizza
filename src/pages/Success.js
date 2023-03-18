@@ -3,7 +3,7 @@ import './Success.css'
 
 const Success = ({ siparis }) => {
   return (
-    <div className="success-Container" style={{ paddingTop: '2%' }}>
+    <div className="success-Container">
       <h4
         style={{ fontFamily: 'Satisfy', textAlign: 'center', color: '#FDC913' }}
       >
@@ -20,13 +20,13 @@ const Success = ({ siparis }) => {
         SİPARİŞ ALINDI.
       </h1>
       <hr style={{ color: 'white' }}></hr>
+      <h4 style={{ color: 'white', fontFamily: 'Satisfy', fontWeight: 100 }}>
+        Merhaba
+        <span style={{ color: '#FDC913' }}> {siparis.isim}!</span>
+      </h4>
       <div className="siparis-container">
-        <h4>
-          Merhaba
-          <span style={{ color: '#FDC913' }}> {siparis.isim}!</span>
-        </h4>
-
-        <h6>Siparişinizin Detayları:</h6>
+        <h6 style={{ textAlign: 'center' }}>Siparişinin Detayları:</h6>
+        <br></br>
 
         <div className="success-row">
           <p>Boyut:</p>
@@ -89,7 +89,7 @@ const Success = ({ siparis }) => {
             </p>
           )}
         </div>
-
+        <br />
         <div id="fiyat-container">
           <h6
             style={{
@@ -100,6 +100,7 @@ const Success = ({ siparis }) => {
           >
             Sipariş Toplamı
           </h6>
+          <br />
           <div className="fiyat-row">
             <p>Seçimler:</p>
             <p> {siparis.malzemeler.length * 5}₺</p>{' '}
@@ -109,7 +110,7 @@ const Success = ({ siparis }) => {
             <p>{siparis.fiyat}₺</p>
           </div>
         </div>
-        <hr></hr>
+
         {/* <img style={{ width: '30%' }} src={require('../assets/kart-3.png')} /> */}
       </div>
     </div>
