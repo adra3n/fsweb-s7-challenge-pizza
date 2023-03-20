@@ -36,7 +36,7 @@ const OrderForm = ({ siparisSonucu }) => {
   const [disableButton, setDisableButton] = useState(true)
   const [baslangicFiyati, setBaslangicFiyati] = useState(70)
   const [siparisAdet, setSiparisAdet] = useState(1)
-
+const [Toplam, setToplam] = useState(70)
   const toppings = [
     'Sosis',
     'Jambon',
@@ -135,6 +135,10 @@ const OrderForm = ({ siparisSonucu }) => {
     formSchema.isValid(siparisDetayi).then((valid) => {
       setDisableButton(!valid)
     })
+    setToplam(
+      (baslangicFiyati + siparisDetayi.malzemeler.length * 5) *
+        siparisDetayi.adet
+    )
     // console.log('siparis detayi >', siparisDetayi)
     console.log('siparisDetayi >', siparisDetayi)
   }, [siparisDetayi])
@@ -142,21 +146,6 @@ const OrderForm = ({ siparisSonucu }) => {
   useEffect(() => {
     console.log('form error >', formErrors)
   }, [formErrors])
-
-  useEffect(() => {
-    setSiparisDetayi({
-      ...siparisDetayi,
-      fiyat:(baslangicFiyati *siparisDetayi.adet + 5 * siparisDetayi.malzemeler.length)*siparisDetayi.adet
-    })
-
-  }, [
-    baslangicFiyati,
-    siparisDetayi.boy,
-    siparisDetayi.malzemeler,
-    siparisAdet,
-    siparisDetayi.adet,
-    siparisDetayi.fiyat,
-  ])
 
   useEffect(()=>{
 setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })
@@ -406,9 +395,7 @@ setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })
               }}
             >
               <h6>Toplam: </h6>
-              <h6>
-                {siparisDetayi.fiyat !== undefined ? siparisDetayi.fiyat : 1}₺
-              </h6>
+             <h6>{Toplam}₺</h6>
             </div>
             <Button
               disabled={disableButton}
