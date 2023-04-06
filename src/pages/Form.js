@@ -36,7 +36,7 @@ const OrderForm = ({ siparisSonucu }) => {
   const [disableButton, setDisableButton] = useState(true)
   const [baslangicFiyati, setBaslangicFiyati] = useState(70)
   const [siparisAdet, setSiparisAdet] = useState(1)
-const [Toplam, setToplam] = useState(70)
+  const [toplam, setToplam] = useState(70)
   const toppings = [
     'Sosis',
     'Jambon',
@@ -144,23 +144,27 @@ const [Toplam, setToplam] = useState(70)
   }, [siparisDetayi])
 
   useEffect(() => {
+    setSiparisDetayi({ ...siparisDetayi, fiyat: toplam })
+  }, [toplam])
+
+  useEffect(() => {
     console.log('form error >', formErrors)
   }, [formErrors])
 
-  useEffect(()=>{
-setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })
-  },[  siparisDetayi.adet,siparisAdet])
+  useEffect(() => {
+    setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })
+  }, [siparisDetayi.adet, siparisAdet])
 
   const counterPlusHandler = (e) => {
-    setSiparisAdet(siparisAdet + parseInt(e.target.value))  
-     setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })
+    setSiparisAdet(siparisAdet + parseInt(e.target.value))
+    setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })
   }
 
   const counterMinusHandler = (e) => {
     siparisAdet > 1
       ? setSiparisAdet(siparisAdet + parseInt(e.target.value))
       : setSiparisAdet(1)
-   setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })    
+    setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })
   }
 
   return (
@@ -342,17 +346,13 @@ setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })
         <div className="bottom-container">
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div className="counter-container">
-              <Button
-            value={-1}
-                onClick={counterMinusHandler}
-              >
+              <Button value={-1} onClick={counterMinusHandler}>
                 -
               </Button>
-              <h5 style={{ marginBottom: '0' }}>
-                {siparisAdet}
-              </h5>
-              <Button  value={1} onClick={counterPlusHandler}>+</Button>{' '}
-              
+              <h5 style={{ marginBottom: '0' }}>{siparisAdet}</h5>
+              <Button value={1} onClick={counterPlusHandler}>
+                +
+              </Button>{' '}
             </div>
             <FormGroup check style={{ marginTop: '2rem', textAlign: 'start' }}>
               <Label check>
@@ -395,7 +395,7 @@ setSiparisDetayi({ ...siparisDetayi, adet: siparisAdet })
               }}
             >
               <h6>Toplam: </h6>
-             <h6>{Toplam}₺</h6>
+              <h6>{toplam}₺</h6>
             </div>
             <Button
               disabled={disableButton}
